@@ -16,7 +16,7 @@ class Settings(BaseSettings):
         validate_assignment: bool = True
         extra: str = 'ignore'
 
-    # bot settings
+    # src settings
     TOKEN: str = config("TOKEN", cast=str)  # type: ignore
     ADMIN_ID: int = config("ADMIN_ID", cast=int)  # type: ignore
 
@@ -29,7 +29,6 @@ class Settings(BaseSettings):
     POSTGRES_DATABASE: str = config("POSTGRES_DATABASE", cast=str)  # type: ignore
     POSTGRES_USER: str = config("POSTGRES_USER", cast=str)  # type: ignore
     POSTGRES_PASSWORD: str = config("POSTGRES_PASSWORD", cast=str)  # type: ignore
-    POSTGRES_MAIN: str = config("POSTGRES_MAIN", cast=str)  # type: ignore
 
     @property
     def redis_url(self) -> str:
