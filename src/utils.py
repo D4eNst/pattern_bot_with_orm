@@ -5,6 +5,9 @@ from repository.database import async_db
 
 
 async def start_with() -> None:
+    async with async_db.async_engine.connect():
+        # check connection
+        pass
     logging.warning("Bot has been started!")
 
 

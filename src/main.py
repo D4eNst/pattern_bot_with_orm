@@ -4,7 +4,7 @@ import logging
 from aiogram.methods import DeleteWebhook
 
 from bot import dp, bot
-from src.content.handlers.routs import main_router
+from content.handlers.routs import main_router
 from content.middlewares.middleware import rg_middlewares
 from utils import start_with, stop_with
 
