@@ -1,14 +1,9 @@
-import logging
-from aiogram import types, Router, F, flags
+from aiogram import types, Router, flags
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from repository.crud.test_repo import TestRepo
-from repository.models import *
-from .keyboards import kb, ikb
-
-import src.content.states as st
 
 router = Router()
 

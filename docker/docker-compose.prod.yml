@@ -42,7 +42,7 @@ services:
     depends_on:
      - postgres_db
      - redis
-    command: python src/main.py
+    command: python main.py
     env_file:
      - .env
     logging:
