@@ -1,13 +1,10 @@
 import asyncio
 import logging
-import sys
 
 from aiogram.methods import DeleteWebhook
 
 from bot import dp, bot
-from src.content.handlers.routs import (
-    basic_router
-)
+from src.content.handlers.routs import main_router
 from content.middlewares.middleware import rg_middlewares
 from utils import start_with, stop_with
 
@@ -16,15 +13,11 @@ logging.basicConfig(level=logging.INFO)
 
 async def start_bot():
     # register handlers and start/stop functions
-
-    dp.include_routers(
-        basic_router
-    )
+    rg_middlewares(dp)
+    dp.include_router(main_router)
 
     dp.startup.register(start_with)
     dp.shutdown.register(stop_with)
-
-    rg_middlewares(dp)
 
     try:
         await bot(DeleteWebhook(drop_pending_updates=True))
