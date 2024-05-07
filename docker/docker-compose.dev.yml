@@ -1,12 +1,10 @@
 version: '3.8'
 
 services:
-  postgres_db:
+  postgres_for_bot:
     restart: always
-    image: postgres
-    container_name: postgres_database
-    environment:
-      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    image: postgres:16.2-alpine
+    container_name: postgres_container
     ports:
       - "5432:5432"
     env_file:
@@ -15,9 +13,9 @@ services:
       - postgres:/var/lib/postgresql/data
       - postgres_config:/etc/postgresql
 
-  redis:
+  redis_for_bot:
     restart: always
-    image: redis
+    image: redis:7.2.4-alpine
     container_name: redis_container
     volumes:
       - redis-data:/data
@@ -27,8 +25,7 @@ services:
       - .env
     sysctls:
       - net.core.somaxconn=1024
-    command:
-     redis-server --requirepass ${REDIS_PASSWORD}
+    command: redis-server --requirepass ${REDIS_PASSWORD}
 
   bot:
     restart: always
@@ -37,13 +34,11 @@ services:
       dockerfile: docker/bot.Dockerfile
     container_name: src
     depends_on:
-      - postgres_db
-      - redis
+      - postgres_for_bot
+      - redis_for_bot
     command: python main.py
     volumes:
       - ../src/:/app/
-    ports:
-      - "8080:8080"
     env_file:
       - .env
 

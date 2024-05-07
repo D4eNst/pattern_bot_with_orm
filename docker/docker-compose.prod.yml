@@ -1,10 +1,10 @@
 version: '3.8'
 
 services:
-  postgres_db:
+  postgres_for_bot:
     restart: always
-    image: postgres
-    container_name: postgres_database
+    image: postgres:16.2-alpine
+    container_name: postgres_container
     expose:
       - 5432
     env_file:
@@ -16,9 +16,9 @@ services:
       options:
         max-size: 50m
 
-  redis:
+  redis_for_bot:
     restart: always
-    image: redis
+    image: redis:7.2.4-alpine
     container_name: redis_container
     volumes:
       - redis-data:/data
@@ -40,8 +40,8 @@ services:
       dockerfile: docker/bot.Dockerfile
     container_name: src
     depends_on:
-      - postgres_db
-      - redis
+      - postgres_for_bot
+      - redis_for_bot
     command: python main.py
     env_file:
       - .env
